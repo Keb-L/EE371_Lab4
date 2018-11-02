@@ -1,0 +1,17 @@
+|binarysearch_controller
+clock => state~1.DATAIN
+reset => state.OUTPUTSELECT
+reset => state.OUTPUTSELECT
+reset => state.OUTPUTSELECT
+en => Selector1.IN2
+en => Selector2.IN2
+en => Selector0.IN1
+F => always1.IN0
+NF => always1.IN1
+done <= done.DB_MAX_OUTPUT_PORT_TYPE
+set_L <= done.DB_MAX_OUTPUT_PORT_TYPE
+set_R <= done.DB_MAX_OUTPUT_PORT_TYPE
+set_M <= set_M.DB_MAX_OUTPUT_PORT_TYPE
+load_A <= load_A.DB_MAX_OUTPUT_PORT_TYPE
+
+

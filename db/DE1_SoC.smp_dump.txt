@@ -1,0 +1,6 @@
+
+State Machine - |binarysearch_controller|state
+Name state~3 state~2 
+state.s_idle 0 0 
+state.s_compare 0 1 
+state.s_done 1 0 

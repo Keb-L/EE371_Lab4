@@ -1,0 +1,8 @@
+module binarysearch_controller (clock, reset, en, done, found);
+input logic clock, reset, en;
+output logic done, found;
+
+parameter s_idle = 2'b00, s_compare = 2'b01, s_done = 2'b10;
+
+
+endmodule
