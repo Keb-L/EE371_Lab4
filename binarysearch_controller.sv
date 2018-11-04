@@ -42,7 +42,7 @@ always_comb begin
 		s_compare :  begin set_M = 1;
 								 set_L = 1;
 								 set_R = 1; end
-		s_done : done = 1;
+//		s_done : done = 1;
 	endcase
 end
 
