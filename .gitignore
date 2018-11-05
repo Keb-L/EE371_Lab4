@@ -1,8 +1,8 @@
 # Ignore everything
-*
+#*
 
 # Except these files
-!.gitignore
-!*.sv
-!*.v
-!*.mif
+#!.gitignore
+#!*.sv
+#!*.v
+#!*.mif
