@@ -4,16 +4,17 @@ module binarysearch_datapath
 				 ADDR_WIDTH = 5
 )
 (
-	clock, A, F, NF, set_L, set_R, set_M, load_A, rd_reg
+	clock, A, F, NF, set_L, set_R, set_M, load_A, 
+	rd_reg, L, R, M, A_reg
 );
 	input logic clock;								// System Signals
 	input logic [VAL_WIDTH-1:0] A; 			  	// Search value
 	input logic set_L, set_R, set_M, load_A; 	// Control Signals
 	output logic F, NF;							  	// Output Signals
-	output logic [VAL_WIDTH-1:0] rd_reg;
+	output logic [VAL_WIDTH-1:0] rd_reg, A_reg;
 	
-	reg [ADDR_WIDTH-1:0] L, R, M; 		// Address pointers
-	reg [VAL_WIDTH-1:0] A_reg;//, rd_reg;	// Value registers
+	output logic [ADDR_WIDTH-1:0] L, R, M; 		// Address pointers
+	//reg [VAL_WIDTH-1:0] A_reg;//, rd_reg;	// Value registers
 	
 	// Recompute M when set_M is high
 	always_latch
@@ -21,6 +22,10 @@ module binarysearch_datapath
 	
 	// Read 32x8 RAM memory, pre-init
 	ram32x8_1p mem (.address(M), .clock(clock), .data(8'hFF), .wren(1'b0), .q(rd_reg));
+	
+	always_comb begin
+	
+	end
 	
 	// Response to control signals
 	always_ff @(posedge clock) begin
@@ -30,13 +35,15 @@ module binarysearch_datapath
 			NF <= 0;
 			if (set_L) L <= 0;
 			if (set_R) R <= (2**ADDR_WIDTH)-1;
+			
 		end
-		else // set_M asserted
+		else // set_M asserted	
 			if (L > R) NF <= 1; 						// End case: Not found
-			else if (rd_reg == A_reg) F <= 1;	// End case: found
-			else if (rd_reg < A_reg) L <= M + 1;// Recursion, right half
-			else if (rd_reg > A_reg) R <= M - 1;// Recursion, left half
-			else {F,NF} <= {1'd1,1'd1};					// Paradox case (should never happen)
+			else if(set_L & set_R)
+				if (rd_reg == A_reg) F <= 1;	// End case: found
+				else if (rd_reg < A_reg) L <= M + 1;// Recursion, right half
+				else if (rd_reg > A_reg) R <= M - 1;// Recursion, left half
+			//else {F,NF} <= {1'd1,1'd1};					// Paradox case (should never happen)
 	end
 		
 endmodule 
@@ -52,7 +59,8 @@ logic clock;								// System Signals
 logic [VAL_WIDTH-1:0] A; 			  	// Search value
 logic set_L, set_R, set_M, load_A; 	// Control Signals
 logic F, NF;							  	// Output Signals
-logic [VAL_WIDTH-1:0] rd_reg;
+logic [VAL_WIDTH-1:0] rd_reg, A_reg;
+logic [ADDR_WIDTH-1:0] L, R, M;
 
 binarysearch_datapath #(VAL_WIDTH, ADDR_WIDTH) dut (.*);
 
@@ -64,13 +72,16 @@ initial begin
 end
 
 initial begin
-A = 8'd45;
+A = 8'd33;
 set_L = 0;	set_R = 0;	set_M = 0;	load_A = 0;	@(posedge clock); // Reset State
 																@(posedge clock);
 set_L = 1;	set_R = 1;					load_A = 1; @(posedge clock); // S_idle Control Signals
 set_L = 0;	set_R = 0;	set_M = 1;	load_A = 0;	@(posedge clock); // S_compute Control Signals
-																@(posedge clock); // F asserted
-																@(posedge clock);								 
+set_L = 1;	set_R = 1;	set_M = 1;	load_A = 0;	@(posedge clock); // F asserted
+set_L = 0;	set_R = 0;	set_M = 1;	load_A = 0;	@(posedge clock); // S_compute Control Signals
+set_L = 1;	set_R = 1;	set_M = 1;	load_A = 0;	@(posedge clock); // F asserted
+																@(posedge clock);
+#300000;																
 $stop;
 end
 
