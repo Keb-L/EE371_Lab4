@@ -3,6 +3,6 @@
 
 # Except these files
 !.gitignore
-!**.sv
+!*.sv
 !*.v
 !*.mif

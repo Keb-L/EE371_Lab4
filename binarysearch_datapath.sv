@@ -29,7 +29,7 @@ module binarysearch_datapath
 			F  <= 0; 
 			NF <= 0;
 			if (set_L) L <= 0;
-			if (set_R) R <= 2**ADDR_WIDTH-1;
+			if (set_R) R <= (2**ADDR_WIDTH)-1;
 		end
 		else // set_M asserted
 			if (L > R) NF <= 1; 						// End case: Not found
