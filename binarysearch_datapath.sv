@@ -4,19 +4,20 @@ module binarysearch_datapath
 				 ADDR_WIDTH = 5
 )
 (
-	clock, A, F, NF, set_L, set_R, set_M, load_A
+	clock, A, F, NF, set_L, set_R, set_M, load_A, rd_reg
 );
 	input logic clock;								// System Signals
 	input logic [VAL_WIDTH-1:0] A; 			  	// Search value
 	input logic set_L, set_R, set_M, load_A; 	// Control Signals
 	output logic F, NF;							  	// Output Signals
+	output logic [VAL_WIDTH-1:0] rd_reg;
 	
 	reg [ADDR_WIDTH-1:0] L, R, M; 		// Address pointers
-	reg [VAL_WIDTH-1:0] A_reg, rd_reg;	// Value registers
+	reg [VAL_WIDTH-1:0] A_reg;//, rd_reg;	// Value registers
 	
 	// Recompute M when set_M is high
 	always_latch
-		if (set_M) M = (R+L) / 2;
+		if ( (set_L & set_R) | set_M) M = (R+L) >> 1;
 	
 	// Read 32x8 RAM memory, pre-init
 	ram32x8_1p mem (.address(M), .clock(clock), .data(8'hFF), .wren(1'b0), .q(rd_reg));
@@ -51,6 +52,7 @@ logic clock;								// System Signals
 logic [VAL_WIDTH-1:0] A; 			  	// Search value
 logic set_L, set_R, set_M, load_A; 	// Control Signals
 logic F, NF;							  	// Output Signals
+logic [VAL_WIDTH-1:0] rd_reg;
 
 binarysearch_datapath #(VAL_WIDTH, ADDR_WIDTH) dut (.*);
 
@@ -62,11 +64,11 @@ initial begin
 end
 
 initial begin
-A = 8'd63;
+A = 8'd45;
 set_L = 0;	set_R = 0;	set_M = 0;	load_A = 0;	@(posedge clock); // Reset State
 																@(posedge clock);
 set_L = 1;	set_R = 1;					load_A = 1; @(posedge clock); // S_idle Control Signals
-set_L = 1;	set_R = 1;	set_M = 1;	load_A = 0;	@(posedge clock); // S_compute Control Signals
+set_L = 0;	set_R = 0;	set_M = 1;	load_A = 0;	@(posedge clock); // S_compute Control Signals
 																@(posedge clock); // F asserted
 																@(posedge clock);								 
 $stop;
