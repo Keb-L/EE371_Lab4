@@ -16,7 +16,7 @@ module binarysearch_datapath
 	
 	// Recompute M when set_M is high
 	always_latch
-		if (set_M) M = (R+L) >> 1;
+		if (set_M) M = (R+L) / 2;
 	
 	// Read 32x8 RAM memory, pre-init
 	ram32x8_1p mem (.address(M), .clock(clock), .data(8'hFF), .wren(1'b0), .q(rd_reg));

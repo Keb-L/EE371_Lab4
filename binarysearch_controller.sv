@@ -47,3 +47,47 @@ always_comb begin
 end
 
 endmodule
+
+`timescale 1ps/1ps
+module binarysearch_controller_testbench();
+	logic clock, reset, en;
+	logic F, NF; // Found, Not Found
+	logic done, set_L, set_R, set_M, load_A;
+	
+	binarysearch_controller dut(.clock, .reset, .en, .F, .NF,  
+											.done, .set_L, .set_R, .set_M, .load_A);
+	
+	parameter CLOCK_PERIOD = 100; // 20 ns / CLOCK_50
+	initial begin
+		clock <= 0;
+		forever #(CLOCK_PERIOD/2) clock <= ~clock;
+	end
+	
+	initial begin
+	reset = 1;	@(posedge clock);
+	reset = 0;	@(posedge clock);
+	en = 1;		@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+	F = 1;		@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+	F = 0; en = 0;		@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+	en = 1;		@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+	NF = 1;		@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+	en = 0;		@(posedge clock);
+					@(posedge clock);
+					@(posedge clock);
+	$stop;
+	end
+	
+endmodule 

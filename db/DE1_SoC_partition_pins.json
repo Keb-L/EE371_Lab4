@@ -4,34 +4,6 @@
 			"name" : "Top",
 			"pins" : [
 				{
-					"name" : "done",
-					"strict" : false
-				},
-				{
-					"name" : "set_L",
-					"strict" : false
-				},
-				{
-					"name" : "set_R",
-					"strict" : false
-				},
-				{
-					"name" : "set_M",
-					"strict" : false
-				},
-				{
-					"name" : "load_A",
-					"strict" : false
-				},
-				{
-					"name" : "reset",
-					"strict" : false
-				},
-				{
-					"name" : "en",
-					"strict" : false
-				},
-				{
 					"name" : "F",
 					"strict" : false
 				},
@@ -41,6 +13,54 @@
 				},
 				{
 					"name" : "clock",
+					"strict" : false
+				},
+				{
+					"name" : "set_M",
+					"strict" : false
+				},
+				{
+					"name" : "A[2]",
+					"strict" : false
+				},
+				{
+					"name" : "load_A",
+					"strict" : false
+				},
+				{
+					"name" : "A[3]",
+					"strict" : false
+				},
+				{
+					"name" : "A[4]",
+					"strict" : false
+				},
+				{
+					"name" : "A[5]",
+					"strict" : false
+				},
+				{
+					"name" : "A[6]",
+					"strict" : false
+				},
+				{
+					"name" : "A[7]",
+					"strict" : false
+				},
+				{
+					"name" : "A[1]",
+					"strict" : false
+				},
+				{
+					"name" : "A[0]",
+					"strict" : false
+				},
+				{
+					"name" : "set_R",
+					"strict" : false
+				},
+				{
+					"name" : "set_L",
 					"strict" : false
 				}
 			]

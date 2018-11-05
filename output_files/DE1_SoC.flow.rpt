@@ -1,5 +1,5 @@
 Flow report for DE1_SoC
-Fri Nov 02 14:08:25 2018
+Sun Nov 04 16:18:23 2018
 Quartus Prime Version 17.0.0 Build 595 04/25/2017 SJ Lite Edition
 
 
@@ -41,18 +41,18 @@ agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Fri Nov 02 14:08:25 2018       ;
+; Flow Status                     ; Successful - Sun Nov 04 16:18:23 2018       ;
 ; Quartus Prime Version           ; 17.0.0 Build 595 04/25/2017 SJ Lite Edition ;
 ; Revision Name                   ; DE1_SoC                                     ;
-; Top-level Entity Name           ; binarysearch_controller                     ;
+; Top-level Entity Name           ; binarysearch_datapath                       ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 2                                           ;
-; Total pins                      ; 10                                          ;
+; Total registers                 ; 20                                          ;
+; Total pins                      ; 15                                          ;
 ; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 0                                           ;
+; Total block memory bits         ; 128                                         ;
 ; Total DSP Blocks                ; 0                                           ;
 ; Total HSSI RX PCSs              ; 0                                           ;
 ; Total HSSI PMA RX Deserializers ; 0                                           ;
@@ -68,32 +68,32 @@ agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 11/02/2018 14:08:10 ;
+; Start date & time ; 11/04/2018 16:18:00 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; DE1_SoC             ;
 +-------------------+---------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                                        ;
-+-------------------------------------+----------------------------------------+---------------+-------------------------+----------------+
-; Assignment Name                     ; Value                                  ; Default Value ; Entity Name             ; Section Id     ;
-+-------------------------------------+----------------------------------------+---------------+-------------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 116552048661965.154119288911864        ; --            ; --                      ; --             ;
-; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                      ; --            ; --                      ; eda_simulation ;
-; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)        ; <None>        ; --                      ; --             ;
-; EDA_TIME_SCALE                      ; 1 ps                                   ; --            ; --                      ; eda_simulation ;
-; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --                      ; --             ;
-; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --                      ; --             ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; binarysearch_controller ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; binarysearch_controller ; Top            ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; binarysearch_controller ; Top            ;
-; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --                      ; --             ;
-; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --                      ; --             ;
-; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --            ; --                      ; --             ;
-; STATE_MACHINE_PROCESSING            ; User-Encoded                           ; Auto          ; --                      ; --             ;
-; TOP_LEVEL_ENTITY                    ; binarysearch_controller                ; DE1_SoC       ; --                      ; --             ;
-+-------------------------------------+----------------------------------------+---------------+-------------------------+----------------+
++---------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                      ;
++-------------------------------------+----------------------------------------+---------------+-----------------------+----------------+
+; Assignment Name                     ; Value                                  ; Default Value ; Entity Name           ; Section Id     ;
++-------------------------------------+----------------------------------------+---------------+-----------------------+----------------+
+; COMPILER_SIGNATURE_ID               ; 48791037951939.154137708013860         ; --            ; --                    ; --             ;
+; EDA_OUTPUT_DATA_FORMAT              ; Systemverilog Hdl                      ; --            ; --                    ; eda_simulation ;
+; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (SystemVerilog)        ; <None>        ; --                    ; --             ;
+; EDA_TIME_SCALE                      ; 1 ps                                   ; --            ; --                    ; eda_simulation ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --            ; --                    ; --             ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --            ; --                    ; --             ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --            ; binarysearch_datapath ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --            ; binarysearch_datapath ; Top            ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --            ; binarysearch_datapath ; Top            ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --            ; --                    ; --             ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --                    ; --             ;
+; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --            ; --                    ; --             ;
+; STATE_MACHINE_PROCESSING            ; User-Encoded                           ; Auto          ; --                    ; --             ;
+; TOP_LEVEL_ENTITY                    ; binarysearch_datapath                  ; DE1_SoC       ; --                    ; --             ;
++-------------------------------------+----------------------------------------+---------------+-----------------------+----------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------------+
@@ -101,8 +101,8 @@ agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:16     ; 1.0                     ; 4817 MB             ; 00:00:37                           ;
-; Total                ; 00:00:16     ; --                      ; --                  ; 00:00:37                           ;
+; Analysis & Synthesis ; 00:00:23     ; 1.0                     ; 4823 MB             ; 00:00:44                           ;
+; Total                ; 00:00:23     ; --                      ; --                  ; 00:00:44                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -111,7 +111,7 @@ agreement for further details.
 +----------------------+------------------+------------+------------+----------------+
 ; Module Name          ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
 +----------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis ; DESKTOP-31V7OCO  ; Windows 10 ; 10.0       ; x86_64         ;
+; Analysis & Synthesis ; DESKTOP-K1GJQ79  ; Windows 10 ; 10.0       ; x86_64         ;
 +----------------------+------------------+------------+------------+----------------+
 
 
