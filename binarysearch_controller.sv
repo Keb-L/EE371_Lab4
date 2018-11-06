@@ -5,7 +5,7 @@ input logic F, NF; // Found, Not Found
 output logic done, set_L, set_R, set_M, load_A;
 
 logic [1:0] state, next_state;
-parameter s_idle = 2'b00, s_compare = 2'b01, s_done = 2'b10;
+parameter s_idle = 2'b00, s_memgrab = 2'b01, s_compare = 2'b10, s_done = 2'b11;
 
 //
 always_ff @(posedge clock)
@@ -16,7 +16,8 @@ always_comb begin
 	case(state)
 		s_idle : if(en) next_state = s_compare;
 				  else	next_state = s_idle;
-				  
+		s_memgrab : next_state = s_compare;
+		
 		s_compare : 	if(F | NF) next_state = s_done;
 						else next_state = s_compare;
 						
@@ -39,6 +40,7 @@ always_comb begin
 							set_L = 1;
 							set_R = 1; end
 
+		s_memgrab : set_M = 1;
 		s_compare :  begin set_M = 1;
 								 set_L = 1;
 								 set_R = 1; end
