@@ -3,7 +3,7 @@ module task2_toplevel
 	parameter VAL_WIDTH = 8,
 				 ADDR_WIDTH = 5
 )
-(clock, en, reset, A, F, F_addr, done, state, next_state);
+(clock, en, reset, A, F, F_addr, done);
 
 	input logic clock;
 	input logic en;
@@ -12,14 +12,14 @@ module task2_toplevel
 	output logic F, done;
 	output logic [ADDR_WIDTH-1:0] F_addr;
 	
-	//temp
-	output logic [1:0] state, next_state;
+	// Controller signals
+	logic NF, set_L, set_R, set_M, load_A;
 	
 	binarysearch_controller control 
-		(clock, reset, en, F, NF, done, set_L, set_R, set_M, load_A, state, next_state);
+		(clock, reset, en, F, NF, done, set_L, set_R, set_M, load_A);
 													
 	binarysearch_datapath #(VAL_WIDTH, ADDR_WIDTH) data 
-		(	clock, A, set_L, set_R, set_M, load_A, done, F, NF, F_addr);
+		(clock, A, set_L, set_R, set_M, load_A, done, F, NF, F_addr);
 		
 endmodule 
 

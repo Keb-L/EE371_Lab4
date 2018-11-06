@@ -1,11 +1,11 @@
 module binarysearch_controller (clock, reset, en, F, NF, done,  
-											set_L, set_R, set_M, load_A, state, next_state);
+											set_L, set_R, set_M, load_A);
 input logic clock, reset, en;
 input logic F, NF; // Found, Not Found
 output logic done;
 output logic set_L, set_R, set_M, load_A;
 
-output logic [1:0] state, next_state;
+logic [1:0] state, next_state;
 parameter s_idle = 2'b00, s_memgrab = 2'b01, s_compare = 2'b10, s_done = 2'b11;
 
 //

@@ -26,5 +26,5 @@ module bit_counter_datapath
 							end
 	end
 	
-	assign result = (done) ? result_reg : 'bz;
+	assign result = done ? result_reg : 'z;
 endmodule 

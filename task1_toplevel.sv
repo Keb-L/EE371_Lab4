@@ -1,7 +1,7 @@
 module task1_toplevel
 #(
 	parameter 	A_WIDTH = 8,
-					RET_WIDTH = 3
+					RET_WIDTH = 4
 )
 (clock, A, reset, s, result, done);
 	input logic clock;
@@ -9,6 +9,9 @@ module task1_toplevel
 	input logic reset, s;
 	output logic [RET_WIDTH-1:0] result;
 	output logic done;
+	
+	// internals signals
+	logic isZero, load_a, up_result;
 	
 	bit_counter_controller #(A_WIDTH, RET_WIDTH) control
 		(clock, reset, s, A, isZero, load_a, up_result, done);
@@ -42,10 +45,16 @@ end
 initial begin
 reset = 1;	s = 0;		@(posedge clock);
 reset = 0;					@(posedge clock);
+#100000;
 A = 8'd21;	s = 0;		@(posedge clock);
-while (~done) begin
+//while (~done) begin
 	s = 1; 	@(posedge clock);
-end
+#300000;
+								@(posedge clock);
+reset = 1;	s = 1;		@(posedge clock);
+reset = 0;					@(posedge clock);
+
+//end
 #100000;
 s = 0;						@(posedge clock);
 
