@@ -4,12 +4,12 @@ module binarysearch_datapath
 				 ADDR_WIDTH = 5
 )
 (
-	clock, A, set_L, set_R, set_M, load_A, 
+	clock, A, set_L, set_R, set_M, load_A, done,
 	F, NF, F_addr
 );
 	input logic clock;								// System Signals
 	input logic [VAL_WIDTH-1:0] A; 			  	// Search value
-	input logic set_L, set_R, set_M, load_A; 	// Control Signals
+	input logic set_L, set_R, set_M, load_A, done; 	// Control Signals
 	output logic F, NF;							  	// Output Signals
 	output logic [ADDR_WIDTH-1:0] F_addr;
 	
@@ -18,10 +18,12 @@ module binarysearch_datapath
 	
 	// Recompute M when set_M is high
 	always_latch
-		if ( (set_L & set_R) | set_M) M = (R+L) >> 1;
+		if (set_M) M = (R+L) >> 1;
 	
 	// Read 32x8 RAM memory, pre-init
 	ram32x8_1p mem (.address(M), .clock(clock), .data(8'hFF), .wren(1'b0), .q(rd_reg));
+	
+	assign F_addr = (F | done) ? M : 'bz;
 	
 	// Response to control signals
 	always_ff @(posedge clock) begin
@@ -31,7 +33,6 @@ module binarysearch_datapath
 			NF <= 0;
 			if (set_L) L <= 0;
 			if (set_R) R <= (2**ADDR_WIDTH)-1;
-			
 		end
 		else // set_M asserted	
 			if (L > R) NF <= 1; 						// End case: Not found
@@ -40,7 +41,6 @@ module binarysearch_datapath
 				else if (rd_reg < A_reg) L <= M + 1;// Recursion, right half
 				else if (rd_reg > A_reg) R <= M - 1;// Recursion, left half
 			//else {F,NF} <= {1'd1,1'd1};					// Paradox case (should never happen)
-		F_addr <= (rd_reg == A_reg) ? M : 'z;
 	end
 		
 endmodule 
@@ -54,7 +54,7 @@ parameter VAL_WIDTH = 8,
 // Input/Output Signals
 logic clock;								// System Signals
 logic [VAL_WIDTH-1:0] A; 			  	// Search value
-logic set_L, set_R, set_M, load_A; 	// Control Signals
+logic set_L, set_R, set_M, load_A, done; 	// Control Signals
 logic F, NF;							  	// Output Signals
 logic [ADDR_WIDTH-1:0] F_addr;
 
@@ -68,13 +68,13 @@ initial begin
 end
 
 initial begin
-A = 8'd30;
+A = 8'd51;
 set_L = 0;	set_R = 0;	set_M = 0;	load_A = 0;	@(posedge clock); // Reset State
 																@(posedge clock);																
 set_L = 1;	set_R = 1;					load_A = 1; @(posedge clock); // S_idle Control Signals
 while (~F & ~NF) begin
-set_L = 0;	set_R = 0;	set_M = 1;	load_A = 0;	@(posedge clock); // S_compute Control Signals
-set_L = 1;	set_R = 1;	set_M = 1;	load_A = 0;	@(posedge clock); // F asserted
+set_L = 0;	set_R = 0;	set_M = 1;	load_A = 0;	@(posedge clock); // S_getmem Control Signals
+set_L = 1;	set_R = 1;	set_M = 1;	load_A = 0;	@(posedge clock); // S_compute
 end
 																@(posedge clock);
 #200000;																
