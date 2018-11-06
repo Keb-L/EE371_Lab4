@@ -1,8 +1,14 @@
-module bit_counter_controller (clock, reset, s, A, load_a, up_result);
+module bit_counter_controller 
+#(
+	parameter 	A_WIDTH = 8,
+					RET_WIDTH = 3
+)
+(clock, reset, s, A, isZero, load_a, up_result, done);
 	input logic clock;
 	input logic reset, s;
-	input logic [7:0] A;
-	output logic load_a, up_result;
+	input logic isZero;
+	input logic [A_WIDTH-1:0] A;
+	output logic load_a, up_result, done;
 	
 	logic[1:0] next_state, state;
 	parameter s_idle = 2'b00, s_right_shift = 2'b01, s_done = 2'b10;
@@ -16,7 +22,7 @@ module bit_counter_controller (clock, reset, s, A, load_a, up_result);
 		case (state)
 			s_idle: 	if (s) next_state = s_right_shift;
 						else next_state = s_idle;
-			s_right_shift: if (A != 0) next_state = s_done;
+			s_right_shift: if (isZero) next_state = s_done;
 								else next_state = s_right_shift;
 			s_done:	if (s) next_state = s_done;
 						else next_state = s_idle;
@@ -26,13 +32,12 @@ module bit_counter_controller (clock, reset, s, A, load_a, up_result);
 	always_comb begin
 		load_a = 0;
 		up_result = 0;
+		done = 0;
 		
 		case (state)
 			s_idle: 	if (!s) load_a = 1;
-						else load_a = 0;
-			s_right_shift:	if ((A != 0) & (A[0])) up_result = 1;
-								else up_result = 0;
-			s_done:	;
+			s_right_shift:	up_result = 1;
+			s_done:	done = 1;
 		endcase
 	end
 	
