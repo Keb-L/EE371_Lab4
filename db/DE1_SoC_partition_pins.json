@@ -1,0 +1,189 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "F",
+					"strict" : false
+				},
+				{
+					"name" : "NF",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[0]",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[1]",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[2]",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[3]",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[4]",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[5]",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[6]",
+					"strict" : false
+				},
+				{
+					"name" : "rd_reg[7]",
+					"strict" : false
+				},
+				{
+					"name" : "L[0]",
+					"strict" : false
+				},
+				{
+					"name" : "L[1]",
+					"strict" : false
+				},
+				{
+					"name" : "L[2]",
+					"strict" : false
+				},
+				{
+					"name" : "L[3]",
+					"strict" : false
+				},
+				{
+					"name" : "L[4]",
+					"strict" : false
+				},
+				{
+					"name" : "R[0]",
+					"strict" : false
+				},
+				{
+					"name" : "R[1]",
+					"strict" : false
+				},
+				{
+					"name" : "R[2]",
+					"strict" : false
+				},
+				{
+					"name" : "R[3]",
+					"strict" : false
+				},
+				{
+					"name" : "R[4]",
+					"strict" : false
+				},
+				{
+					"name" : "M[0]",
+					"strict" : false
+				},
+				{
+					"name" : "M[1]",
+					"strict" : false
+				},
+				{
+					"name" : "M[2]",
+					"strict" : false
+				},
+				{
+					"name" : "M[3]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[0]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[1]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[2]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[3]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[4]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[5]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[6]",
+					"strict" : false
+				},
+				{
+					"name" : "A_reg[7]",
+					"strict" : false
+				},
+				{
+					"name" : "set_M",
+					"strict" : false
+				},
+				{
+					"name" : "set_L",
+					"strict" : false
+				},
+				{
+					"name" : "set_R",
+					"strict" : false
+				},
+				{
+					"name" : "clock",
+					"strict" : false
+				},
+				{
+					"name" : "A[0]",
+					"strict" : false
+				},
+				{
+					"name" : "load_A",
+					"strict" : false
+				},
+				{
+					"name" : "A[1]",
+					"strict" : false
+				},
+				{
+					"name" : "A[2]",
+					"strict" : false
+				},
+				{
+					"name" : "A[3]",
+					"strict" : false
+				},
+				{
+					"name" : "A[4]",
+					"strict" : false
+				},
+				{
+					"name" : "A[5]",
+					"strict" : false
+				},
+				{
+					"name" : "A[6]",
+					"strict" : false
+				},
+				{
+					"name" : "A[7]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
