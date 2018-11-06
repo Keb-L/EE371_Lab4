@@ -19,7 +19,7 @@ always_comb begin
 		s_memgrab : next_state = s_compare;
 		
 		s_compare : 	if(F | NF) next_state = s_done;
-						else next_state = s_compare;
+						else next_state = s_memgrab;
 						
 		s_done : 	if(en) next_state = s_done;
 					else next_state = s_idle;
