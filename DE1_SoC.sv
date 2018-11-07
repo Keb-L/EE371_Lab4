@@ -17,9 +17,11 @@ parameter VAL_WIDTH = 8,
 logic [RET_WIDTH-1:0] count;
 logic [9:0] SW_F;
 logic [3:0] KEY_F;
+logic [4:0] F_addr;
+logic done;
 				
 //assign HEX0 = '1;
-assign HEX1 = '1;
+
 assign HEX2 = '1;
 assign HEX3 = '1;
 assign HEX4 = '1;
@@ -31,17 +33,18 @@ logic [13:0] temp;
 D_FF #(14) pass1 (.d({~KEY, SW}), .q(temp), .clk(CLOCK_50), .reset(0));
 D_FF #(14) pass2 (.d(temp), .q({KEY_F, SW_F}), .clk(CLOCK_50), .reset(0));
 		
-task1_toplevel #(A_WIDTH, RET_WIDTH) task1 
-	(.clock(CLOCK_50), .A(SW_F[7:0]), .reset(KEY_F[0]), .s(SW_F[9]), .result(count), .done(LEDR[9]));
-
-Hex2Seg disp0 (.hexIn(4'bz), .segOut(HEX0));
-
-
-//task2_toplevel #(VAL_WIDTH, ADDR_WIDTH) task2
-//	(.clock(CLOCK_50), .en(SW[9]), .reset(~KEY[0]), .A(SW[7:0]), .F(LEDR[9]), F_addr, .done)
+//task1_toplevel #(A_WIDTH, RET_WIDTH) task1 
+//	(.clock(CLOCK_50), .A(SW_F[7:0]), .reset(~KEY_F[0]), .s(SW_F[9]), .result(count), .done(LEDR[9]));
 //
-//Hex2Seg  disp0 (.hexIn(F_addr)), .segOut(HEX0));
-//Hex2Seg  disp1 (.hexIn(F_addr >> 1)), .segOut(HEX1));
+//Hex2Seg disp0 (.hexIn(5'b11111), .segOut(HEX0));
+
+
+task2_toplevel #(VAL_WIDTH, ADDR_WIDTH) task2
+	(.clock(CLOCK_50), .en(SW[9]), .reset(~KEY[0]), .A(SW[7:0]), .F(LEDR[9]), .F_addr, .done);
+
+
+Hex2Seg  disp0 (.hexIn(F_addr), .segOut(HEX0));
+Hex2Seg  disp1 (.hexIn(F_addr >> 1), .segOut(HEX1));
 	
 endmodule
 
