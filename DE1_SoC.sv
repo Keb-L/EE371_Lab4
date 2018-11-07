@@ -17,9 +17,11 @@ parameter VAL_WIDTH = 8,
 logic [RET_WIDTH-1:0] count;
 //logic [9:0] SW_F;
 //logic [3:0] KEY_F;
-logic [4:0] F_addr;
+logic [ADDR_WIDTH-1:0] F_addr;
 logic done, hex_en;
 		
+logic [3:0] F_addr_h1, F_addr_h2;
+
 //assign HEX0 = '1;
 //assign HEX1 = '1;
 assign HEX2 = '1;
@@ -42,8 +44,13 @@ task2_toplevel #(VAL_WIDTH, ADDR_WIDTH) task2
 	(.clock(CLOCK_50), .en(SW[9]), .reset(~KEY[0]), .A(SW[7:0]), .NF(LEDR[8]), .F(LEDR[9]), .F_addr, .done, .hex_en);
 
 
-Hex2Seg  disp0 (.hexIn(F_addr), .hex_en, .segOut(HEX0));
-Hex2Seg  disp1 (.hexIn(F_addr >> 4), .hex_en, .segOut(HEX1));
+Hex2Seg disp0 (.hexIn(F_addr_h1), .hex_en, .segOut(HEX0));
+Hex2Seg disp1 (.hexIn(F_addr_h2), .hex_en, .segOut(HEX1));
+
+always_comb begin
+	F_addr_h1 = F_addr;
+	F_addr_h2 = (F_addr >> 4);
+end
 	
 endmodule
 

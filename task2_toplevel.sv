@@ -12,6 +12,10 @@ module task2_toplevel
 	output logic F, NF, done, hex_en;
 	output logic [ADDR_WIDTH-1:0] F_addr;
 	
+//	output logic [1:0] state, next_state;
+//	output logic [ADDR_WIDTH-1:0] L, R, M;
+//	output logic [VAL_WIDTH-1:0] A_reg, rd_reg;
+	
 	// Controller signals
 	logic set_L, set_R, set_M, load_A;
 	
@@ -31,10 +35,12 @@ parameter VAL_WIDTH = 8,
 logic clock, en, reset;
 logic [VAL_WIDTH-1:0] A;
 logic NF, F, done, hex_en;
-logic [ADDR_WIDTH-1:0] F_addr;
+logic [ADDR_WIDTH-1:0] F_addr, F2;
 
 // temp
 logic [1:0] state, next_state;
+logic [ADDR_WIDTH-1:0] L, R, M;
+logic [VAL_WIDTH-1:0] A_reg, rd_reg;
 
 task2_toplevel #(VAL_WIDTH, ADDR_WIDTH) dut (.*);
 
@@ -45,10 +51,13 @@ initial begin
 	forever #(CLOCK_PERIOD/2) clock <= ~clock;
 end
 
+always_comb
+	F2 = F_addr >> 4;
+
 initial begin
 reset = 1;	en = 0;		@(posedge clock);
 reset = 0;					@(posedge clock);
-A = 8'd21;	en = 0;		@(posedge clock);
+A = 8'h51;	en = 0;		@(posedge clock);
 while (~done) begin
 	en = 1; 	@(posedge clock);
 end

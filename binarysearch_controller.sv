@@ -2,8 +2,7 @@ module binarysearch_controller (clock, reset, en, F, NF, done,
 											set_L, set_R, set_M, load_A);
 input logic clock, reset, en;
 input logic F, NF; // Found, Not Found
-output logic done;
-output logic set_L, set_R, set_M, load_A;
+output logic set_L, set_R, set_M, load_A, done;
 
 logic [1:0] state, next_state;
 parameter s_idle = 2'b00, s_memgrab = 2'b01, s_compare = 2'b10, s_done = 2'b11;
@@ -35,6 +34,7 @@ always_comb begin
 	set_M = 0;
 	load_A = 0;
 	done = 0;
+	
 	case(state) 
 		s_idle : begin load_A = 1; 
 							set_L = 1;
@@ -56,8 +56,10 @@ module binarysearch_controller_testbench();
 	logic F, NF; // Found, Not Found
 	logic done, set_L, set_R, set_M, load_A;
 	
-	binarysearch_controller dut(.clock, .reset, .en, .F, .NF,  
-											.set_L, .set_R, .set_M, .load_A);
+	// temp
+	logic [1:0] state, next_state;
+	
+	binarysearch_controller dut(.*);
 	
 	parameter CLOCK_PERIOD = 100; // 20 ns / CLOCK_50
 	initial begin
