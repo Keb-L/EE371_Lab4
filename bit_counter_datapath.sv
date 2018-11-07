@@ -1,14 +1,15 @@
 module bit_counter_datapath 
 #(
 	parameter 	A_WIDTH = 8,
-					RET_WIDTH = 3
+					RET_WIDTH = 4
 )
-(clock, up_result, A, load_a, result, done, isZero);
+(clock, up_result, A, load_a, result, done, isZero, hex_en);
 	input logic clock;
 	input logic up_result, load_a, done;
 	input logic [A_WIDTH-1:0] A;
 	output logic isZero;
 	output logic [RET_WIDTH-1:0] result;
+	output logic hex_en;
 	
 	logic [A_WIDTH-1:0] A_reg;
 	logic [RET_WIDTH-1:0] result_reg;
@@ -26,5 +27,6 @@ module bit_counter_datapath
 							end
 	end
 	
-	assign result = done ? result_reg : 'z;
+	assign result = done ? result_reg : '0;
+	assign hex_en = done ? 1'b1 : 1'b0;
 endmodule 

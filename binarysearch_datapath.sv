@@ -5,12 +5,12 @@ module binarysearch_datapath
 )
 (
 	clock, A, set_L, set_R, set_M, load_A, done,
-	F, NF, F_addr
+	F, NF, F_addr, hex_en
 );
 	input logic clock;								// System Signals
 	input logic [VAL_WIDTH-1:0] A; 			  	// Search value
 	input logic set_L, set_R, set_M, load_A, done; 	// Control Signals
-	output logic F, NF;							  	// Output Signals
+	output logic F, NF, hex_en;							  	// Output Signals
 	output logic [ADDR_WIDTH-1:0] F_addr;
 	
 	reg [ADDR_WIDTH-1:0] L, R, M; 		// Address pointers
@@ -23,13 +23,14 @@ module binarysearch_datapath
 	// Read 32x8 RAM memory, pre-init
 	ram32x8_1p mem (.address(M), .clock(clock), .data(8'hFF), .wren(1'b0), .q(rd_reg));
 	
-	assign F_addr = (F | done) ? M : 'bz;
+	assign F_addr = F ? M : 'bz;
+	assign hex_en = F ? 1'b1: 1'b0;
 	
 	// Response to control signals
 	always_ff @(posedge clock) begin
 		if (load_A) A_reg <= A;
-		if (~set_M) begin
-			F  <= 0; 
+		if (~set_M & ~done) begin
+			F <= 0;
 			NF <= 0;
 			if (set_L) L <= 0;
 			if (set_R) R <= (2**ADDR_WIDTH)-1;
@@ -55,7 +56,7 @@ parameter VAL_WIDTH = 8,
 logic clock;								// System Signals
 logic [VAL_WIDTH-1:0] A; 			  	// Search value
 logic set_L, set_R, set_M, load_A, done; 	// Control Signals
-logic F, NF;							  	// Output Signals
+logic F, NF, hex_en;							  	// Output Signals
 logic [ADDR_WIDTH-1:0] F_addr;
 
 binarysearch_datapath #(VAL_WIDTH, ADDR_WIDTH) dut (.*);

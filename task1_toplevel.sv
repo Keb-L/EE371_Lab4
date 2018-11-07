@@ -3,12 +3,12 @@ module task1_toplevel
 	parameter 	A_WIDTH = 8,
 					RET_WIDTH = 4
 )
-(clock, A, reset, s, result, done);
+(clock, A, reset, s, result, hex_en, done);
 	input logic clock;
 	input logic [A_WIDTH-1:0] A;
 	input logic reset, s;
-	output logic [RET_WIDTH-1:0] result;
-	output logic done;
+	output logic [RET_WIDTH-1:0] result; // 1 bit for enabled
+	output logic done, hex_en;
 	
 	// internals signals
 	logic isZero, load_a, up_result;
@@ -17,7 +17,7 @@ module task1_toplevel
 		(clock, reset, s, A, isZero, load_a, up_result, done);
 	
 	bit_counter_datapath #(A_WIDTH, RET_WIDTH) data 
-		(clock, up_result, A, load_a, result, done, isZero);
+		(clock, up_result, A, load_a, result, done, isZero, hex_en);
 	
 endmodule 
 
@@ -31,7 +31,7 @@ logic clock;
 logic [A_WIDTH-1:0] A;
 logic reset, s;
 logic [RET_WIDTH-1:0] result;
-logic done;
+logic done, hex_en;
 
 task1_toplevel #(A_WIDTH, RET_WIDTH) dut (.*);
 

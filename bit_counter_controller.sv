@@ -1,7 +1,7 @@
 module bit_counter_controller 
 #(
 	parameter 	A_WIDTH = 8,
-					RET_WIDTH = 3
+					RET_WIDTH = 4
 )
 (clock, reset, s, A, isZero, load_a, up_result, done);
 	input logic clock;
